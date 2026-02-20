@@ -20,7 +20,9 @@ export interface BusinessInfo {
   address: string;
   fullAddress: string;
   hours: string;
-  deliveryUrl: string; // Placeholder for UberEats/Deliveroo
+  deliveryUrl: string;
+  mapsUrl: string;
+  mapsEmbedUrl: string;
 }
 
 export interface ChatMessage {

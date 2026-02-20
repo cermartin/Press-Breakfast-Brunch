@@ -7,6 +7,7 @@ import { Testimonials } from './components/Testimonials';
 import { Footer } from './components/Footer';
 import { MenuAssistant } from './components/MenuAssistant';
 import { FullMenu } from './components/FullMenu';
+import { Location } from './components/Location';
 import { BUSINESS_INFO } from './constants';
 
 const App: React.FC = () => {
@@ -99,6 +100,7 @@ const App: React.FC = () => {
         <FullMenu />
         <Features />
         <Testimonials />
+        <Location />
       </main>
 
       <Footer />

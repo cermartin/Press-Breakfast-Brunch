@@ -5,6 +5,8 @@ export const BUSINESS_INFO: BusinessInfo = {
   address: "311 Long Lane, Hillingdon, Uxbridge",
   fullAddress: "311 Long Lane, Hillingdon, Uxbridge, UB10 9JY",
   hours: "Mon-Sat 7:00-16:30 | Sun 8:00-16:00 | Tue CLOSED",
+  mapsUrl: "https://www.google.com/maps/place/Press+Breakfast+%26+Brunch/@51.5513178,-0.4492655,17z/data=!3m1!4b1!4m6!3m5!1s0x48766d53a1de10db:0xfb34649d7bf53171!8m2!3d51.5513178!4d-0.4492655!16s%2Fg%2F11l1f7c0y9",
+  mapsEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2481.874!2d-0.4514528!3d51.5513178!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48766d53a1de10db%3A0xfb34649d7bf53171!2sPress%20Breakfast%20%26%20Brunch!5e0!3m2!1sen!2suk!4v1708609200000!5m2!1sen!2suk",
   deliveryUrl: "https://www.google.com/viewer/chooseprovider?mid=/g/11l1f7c0y9&g2lbs=AIBNGdUa5SBBmWqzrEPC98RLHVwd8i1gF82hy3lWzf-6q5S-az3TIKVZnQnmNI178HSocP3ATLmdVJ6SMl9AX1TkqntJmDJklw%3D%3D&hl=en-GB&gl=uk&fo_m=MfohQo559jFvMUOzJVpjPL1YMfZ3bInYwBDuMfaXTPp5KXh-&utm_source=tactile&gei=GUSYaeucKoSBhbIPnv2J2A0&ei=GUSYaeucKoSBhbIPnv2J2A0&fo_s=OA&opi=79508299&ebb=1&cs=0&foub=mcpp",
 };
 

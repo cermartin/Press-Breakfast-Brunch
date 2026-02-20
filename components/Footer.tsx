@@ -4,7 +4,7 @@ import { BUSINESS_INFO } from '../constants';
 
 export const Footer: React.FC = () => {
   return (
-    <footer id="location" className="bg-charcoal text-white pt-16 pb-8">
+    <footer className="bg-charcoal text-white pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           
@@ -58,22 +58,28 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Map Embed */}
-          <div className="h-48 w-full rounded-xl overflow-hidden bg-stone-800 border border-stone-700">
-             {/* Using a static image for the map to ensure visual consistency without an actual API key for Maps. 
-                 In a real app, this would be a Google Maps Embed iframe. */}
-             <div className="w-full h-full relative group cursor-pointer">
-                <img 
-                  src="https://picsum.photos/400/300?grayscale&blur=2" 
-                  alt="Map Location" 
-                  className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity"
-                />
-                <div className="absolute inset-0 flex items-center justify-center">
-                   <div className="bg-terracotta px-4 py-2 rounded-full text-white text-sm font-bold shadow-lg flex items-center gap-2">
-                      <MapPin className="w-4 h-4" />
-                      View on Google Maps
-                   </div>
-                </div>
-             </div>
+          <div className="space-y-3">
+            <div className="h-48 w-full rounded-xl overflow-hidden border border-stone-700">
+              <iframe
+                title="Press Breakfast & Brunch location"
+                src={BUSINESS_INFO.mapsEmbedUrl}
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+            <a
+              href={BUSINESS_INFO.mapsUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center justify-center gap-2 w-full bg-press-red hover:bg-red-600 text-white font-bold text-sm py-2.5 rounded-lg transition-colors"
+            >
+              <MapPin className="w-4 h-4" />
+              Get Directions
+            </a>
           </div>
         </div>
 
