@@ -96,10 +96,10 @@ const App: React.FC = () => {
 
       <main className="flex-grow">
         <Hero onOpenMenu={() => document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth' })} />
+        <Testimonials />
         <MenuHighlights />
         <FullMenu />
         <Features />
-        <Testimonials />
         <Location />
       </main>
 

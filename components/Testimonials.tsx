@@ -40,7 +40,7 @@ export const Testimonials: React.FC = () => {
 
           <div className="flex flex-col items-center gap-3 mb-6">
             <div className="flex items-end gap-4">
-              <span className="text-8xl font-black text-white leading-none">4.7</span>
+              <span className="text-8xl font-black text-white leading-none">4.9</span>
               <div className="flex flex-col items-start gap-1 pb-3">
                 <div className="flex gap-1">
                   {Array.from({ length: 5 }).map((_, i) => (
@@ -49,7 +49,7 @@ export const Testimonials: React.FC = () => {
                     </svg>
                   ))}
                 </div>
-                <span className="text-stone-400 text-sm font-medium">Based on Google Reviews</span>
+                <span className="text-stone-400 text-sm font-medium">Based on 241 Google Reviews</span>
               </div>
             </div>
           </div>
