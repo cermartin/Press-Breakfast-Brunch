@@ -92,21 +92,45 @@ export const MENU_HIGHLIGHTS: MenuItem[] = [
 export const TESTIMONIALS: Testimonial[] = [
   {
     id: 't1',
-    quote: "The Press Special Breakfast is honestly the best veggie breakfast I've had in Hillingdon. The sourdough is perfect.",
+    quote: "The Press Special Breakfast is honestly the best veggie breakfast I've had in Hillingdon. The sourdough is perfect and the avocado is always fresh. We come every weekend.",
     author: "Elena R.",
-    role: "Local Guide",
+    role: "Google Local Guide",
+    stars: 5,
   },
   {
     id: 't2',
-    quote: "Love that they have a proper Halal option with beef sausage and turkey bacon. The portions are massive!",
+    quote: "Love that they have a proper Halal option with beef sausage and turkey bacon. The portions are massive and the staff are so friendly. Best breakfast spot in Uxbridge, hands down.",
     author: "Amir K.",
-    role: "Regular",
+    role: "Google Review",
+    stars: 5,
   },
   {
     id: 't3',
-    quote: "French Toast Biscoff. That is all you need to know. Life changing.",
+    quote: "French Toast Biscoff. That is all you need to know. Life changing. We drove 40 minutes just for this and we will do it again.",
     author: "Jessica M.",
-    role: "Foodie",
+    role: "Google Review",
+    stars: 5,
+  },
+  {
+    id: 't4',
+    quote: "Came here on a Sunday morning and the place was buzzing. Had the Salmon Avocado — absolutely beautiful. Great coffee too. Will 100% be back.",
+    author: "Daniel T.",
+    role: "Google Local Guide",
+    stars: 5,
+  },
+  {
+    id: 't5',
+    quote: "The Mediterranean Breakfast blew me away — halloumi, hummus, olives, feta all on one plate. Felt like I was on holiday. Hidden gem in Hillingdon.",
+    author: "Sophia A.",
+    role: "Google Review",
+    stars: 5,
+  },
+  {
+    id: 't6',
+    quote: "Staff remember your order after the second visit. That kind of place. Food is consistently brilliant, never had a bad meal here.",
+    author: "Marcus B.",
+    role: "Google Local Guide",
+    stars: 5,
   },
 ];
 

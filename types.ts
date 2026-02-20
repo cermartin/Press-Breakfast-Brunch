@@ -13,6 +13,7 @@ export interface Testimonial {
   quote: string;
   author: string;
   role?: string;
+  stars?: number;
 }
 
 export interface BusinessInfo {
