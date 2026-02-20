@@ -6,6 +6,7 @@ import { Features } from './components/Features';
 import { Testimonials } from './components/Testimonials';
 import { Footer } from './components/Footer';
 import { MenuAssistant } from './components/MenuAssistant';
+import { FullMenu } from './components/FullMenu';
 import { BUSINESS_INFO } from './constants';
 
 const App: React.FC = () => {
@@ -33,7 +34,7 @@ const App: React.FC = () => {
 
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center space-x-8">
-              <a href="#menu" className="text-gray-300 hover:text-white font-medium transition-colors text-sm uppercase tracking-wide">Menu</a>
+              <a href="#full-menu" className="text-gray-300 hover:text-white font-medium transition-colors text-sm uppercase tracking-wide">Menu</a>
               <a href="#about" className="text-gray-300 hover:text-white font-medium transition-colors text-sm uppercase tracking-wide">About</a>
               <a href="#location" className="text-gray-300 hover:text-white font-medium transition-colors text-sm uppercase tracking-wide">Location</a>
               
@@ -95,6 +96,7 @@ const App: React.FC = () => {
       <main className="flex-grow">
         <Hero onOpenMenu={() => document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth' })} />
         <MenuHighlights />
+        <FullMenu />
         <Features />
         <Testimonials />
       </main>
