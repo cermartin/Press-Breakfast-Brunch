@@ -16,7 +16,7 @@ export const MENU_HIGHLIGHTS: MenuItem[] = [
     description: 'Two poached eggs, smashed avocado, cooked spinach, grilled tomato, mushroom, beans, veggie sausage and sourdough toast.',
     category: 'Breakfast',
     price: '£10.00',
-    image: 'https://picsum.photos/600/400?random=1',
+    image: '/images/halal-breakfast.png',
     isVegetarian: true,
   },
   {
@@ -25,7 +25,7 @@ export const MENU_HIGHLIGHTS: MenuItem[] = [
     description: 'Turkey bacon, egg, beef sausage, hash brown, tomatoes, mushrooms, grilled halloumi, beans and 2 toasts.',
     category: 'Breakfast',
     price: '£9.50',
-    image: 'https://picsum.photos/600/400?random=2',
+    image: '/images/full-english.png',
   },
   {
     id: '3',
@@ -33,7 +33,7 @@ export const MENU_HIGHLIGHTS: MenuItem[] = [
     description: 'Fried eggs, smoked bacon, Cumberland sausage, mushroom, tomato, hash brown, beans and 2 toasts.',
     category: 'Breakfast',
     price: '£8.90',
-    image: 'https://picsum.photos/600/400?random=10',
+    image: '/images/full-english.png',
   },
   {
     id: '4',
@@ -41,7 +41,7 @@ export const MENU_HIGHLIGHTS: MenuItem[] = [
     description: 'Toasted sourdough bread topped with 2 poached eggs, turkey bacon or streaky bacon, grilled tomato.',
     category: 'Brunch',
     price: '£10.00',
-    image: 'https://picsum.photos/600/400?random=3',
+    image: '/images/egg-benedict.png',
   },
   {
     id: '5',
@@ -49,7 +49,7 @@ export const MENU_HIGHLIGHTS: MenuItem[] = [
     description: 'Toasted sourdough bread, smashed avocado, scrambled eggs and smoked salmon.',
     category: 'Brunch',
     price: '£11.50',
-    image: 'https://picsum.photos/600/400?random=4',
+    image: '/images/salmon-avocado.png',
   },
   // Sweet Treats
   {
@@ -58,7 +58,7 @@ export const MENU_HIGHLIGHTS: MenuItem[] = [
     description: '2 pancakes, scrambled eggs, smoked bacon, Cumberland sausage, hash brown, mix berries and maple syrup.',
     category: 'Pancakes',
     price: '£11.00',
-    image: 'https://picsum.photos/600/400?random=5',
+    image: '/images/pancakes.png',
   },
   {
     id: '7',
@@ -66,7 +66,7 @@ export const MENU_HIGHLIGHTS: MenuItem[] = [
     description: 'Brioche bread, nutella, mix berries, banana, cinnamon, biscoff and biscoff sauce.',
     category: 'Pancakes',
     price: '£10.50',
-    image: 'https://picsum.photos/600/400?random=6',
+    image: '/images/french-toast.png',
   },
   // Lunch / Panini
   {
@@ -75,7 +75,7 @@ export const MENU_HIGHLIGHTS: MenuItem[] = [
     description: 'Mozzarella, Turkish garlic sausage, tomato, gherkins with ketchup and mayo.',
     category: 'Panini',
     price: '£9.50',
-    image: 'https://picsum.photos/600/400?random=7',
+    image: '/images/kippers.png',
   },
   {
     id: '9',
@@ -83,7 +83,7 @@ export const MENU_HIGHLIGHTS: MenuItem[] = [
     description: 'Turkish garlic sausage, cheddar cheese. Served with chips and salad.',
     category: 'Omelettes',
     price: '£9.50',
-    image: 'https://picsum.photos/600/400?random=8',
+    image: '/images/egg-benedict.png',
   },
 ];
 

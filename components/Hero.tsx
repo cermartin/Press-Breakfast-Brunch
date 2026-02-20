@@ -67,9 +67,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenMenu }) => {
           <div className="relative hidden lg:block h-full min-h-[500px]">
              {/* Main Plate Image */}
              <div className="absolute top-10 right-10 w-4/5 h-4/5 bg-white rounded-3xl shadow-2xl overflow-hidden transform rotate-2 z-10 border-4 border-white">
-                <img 
-                  src="https://picsum.photos/800/800?random=12" 
-                  alt="Full English Breakfast" 
+                <img
+                  src="/images/full-english.png"
+                  alt="Full English Breakfast"
                   className="w-full h-full object-cover"
                 />
                 {/* Sticker */}
@@ -79,9 +79,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenMenu }) => {
              </div>
              {/* Secondary Image */}
              <div className="absolute bottom-20 left-10 w-2/3 h-2/3 bg-white rounded-3xl shadow-xl overflow-hidden transform -rotate-3 z-0 border-4 border-white opacity-90">
-                <img 
-                  src="https://picsum.photos/600/600?random=13" 
-                  alt="Pancakes" 
+                <img
+                  src="/images/french-toast.png"
+                  alt="French Toast"
                   className="w-full h-full object-cover"
                 />
              </div>
