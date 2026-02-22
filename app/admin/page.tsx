@@ -119,14 +119,17 @@ export default function AdminPage() {
           <h1 className="font-bold text-lg">Reservations Dashboard</h1>
           <p className="text-stone-400 text-xs">Press Breakfast & Brunch</p>
         </div>
-        <button
-          onClick={() => fetchReservations(password)}
-          disabled={loading}
-          className="flex items-center gap-2 bg-white/10 hover:bg-white/20 transition-colors px-4 py-2 rounded-xl text-sm font-medium"
-        >
-          <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
-          Refresh
-        </button>
+        <div className="flex items-center gap-3">
+          <span className="text-stone-500 text-xs font-mono">v{process.env.NEXT_PUBLIC_APP_VERSION}</span>
+          <button
+            onClick={() => fetchReservations(password)}
+            disabled={loading}
+            className="flex items-center gap-2 bg-white/10 hover:bg-white/20 transition-colors px-4 py-2 rounded-xl text-sm font-medium"
+          >
+            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+            Refresh
+          </button>
+        </div>
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
