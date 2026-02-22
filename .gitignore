@@ -12,6 +12,17 @@ dist
 dist-ssr
 *.local
 
+# Next.js
+/.next/
+/out/
+
+# Vercel
+.vercel
+
+# TypeScript
+next-env.d.ts
+*.tsbuildinfo
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -27,3 +38,5 @@ dist-ssr
 screenshot-cleaner/clean.js
 screenshot-cleaner/cleaned/
 screenshot-cleaner/node_modules/
+
+.vercel

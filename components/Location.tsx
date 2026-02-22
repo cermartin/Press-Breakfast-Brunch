@@ -1,15 +1,14 @@
-import React from 'react';
-import { MapPin, Clock, Phone, Navigation } from 'lucide-react';
-import { BUSINESS_INFO } from '../constants';
+import { MapPin, Clock, Phone, Navigation } from 'lucide-react'
+import { BUSINESS_INFO } from '@/lib/constants'
 
-export const Location: React.FC = () => {
+export default function Location() {
   return (
     <section id="location" className="py-24 bg-press-dark">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <span className="text-press-red font-bold uppercase tracking-widest text-sm">Find Us</span>
           <h2 className="text-4xl md:text-5xl font-bold text-white mt-2 mb-4">Come Visit Us</h2>
-          <p className="text-stone-400 font-serif italic text-lg">Hillingdon's favourite breakfast spot</p>
+          <p className="text-stone-400 font-serif italic text-lg">Hillingdon&apos;s favourite breakfast spot</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
@@ -39,9 +38,18 @@ export const Location: React.FC = () => {
               <div>
                 <p className="text-white font-bold mb-2">Opening Hours</p>
                 <div className="space-y-1 text-sm text-stone-400">
-                  <div className="flex justify-between gap-4"><span>Mon – Sat</span><span className="text-white font-medium">7:00 – 16:30</span></div>
-                  <div className="flex justify-between gap-4"><span>Sunday</span><span className="text-white font-medium">8:00 – 16:00</span></div>
-                  <div className="flex justify-between gap-4"><span>Tuesday</span><span className="text-press-red font-bold">Closed</span></div>
+                  <div className="flex justify-between gap-6">
+                    <span>Mon & Wed–Sat</span>
+                    <span className="text-white font-medium">7:00–16:30</span>
+                  </div>
+                  <div className="flex justify-between gap-6">
+                    <span>Sunday</span>
+                    <span className="text-white font-medium">8:00–16:00</span>
+                  </div>
+                  <div className="flex justify-between gap-6">
+                    <span>Tuesday</span>
+                    <span className="text-press-red font-bold">Closed</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -72,13 +80,13 @@ export const Location: React.FC = () => {
           </div>
 
           {/* Map */}
-          <div className="lg:col-span-2 rounded-3xl overflow-hidden shadow-2xl h-96 lg:h-full min-h-96 border-4 border-stone-700">
+          <div className="lg:col-span-2 rounded-3xl overflow-hidden shadow-2xl border-4 border-stone-700" style={{ height: '420px' }}>
             <iframe
               title="Press Breakfast & Brunch on Google Maps"
               src={BUSINESS_INFO.mapsEmbedUrl}
               width="100%"
               height="100%"
-              style={{ border: 0, minHeight: '400px' }}
+              style={{ border: 0 }}
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
@@ -87,5 +95,5 @@ export const Location: React.FC = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
