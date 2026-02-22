@@ -7,7 +7,7 @@ function getResend() {
 }
 
 const FROM = process.env.RESTAURANT_EMAIL_FROM ?? 'Press Breakfast & Brunch <onboarding@resend.dev>'
-const RESTAURANT_EMAIL = process.env.RESTAURANT_NOTIFY_EMAIL ?? ''
+const RESTAURANT_EMAIL = process.env.RESTAURANT_NOTIFY_EMAIL ?? 'emilyjacksn688@gmail.com'
 
 interface BookingDetails {
   name: string
@@ -32,7 +32,7 @@ function formatDate(dateStr: string) {
 export async function sendOwnerNewBookingEmail(booking: BookingDetails) {
   if (!RESTAURANT_EMAIL) return
 
-  await getResend().emails.send({
+  const { error } = await getResend().emails.send({
     from: FROM,
     to: RESTAURANT_EMAIL,
     subject: `New Reservation — ${booking.name}, ${formatDate(booking.date)} at ${booking.time}`,
@@ -61,6 +61,7 @@ export async function sendOwnerNewBookingEmail(booking: BookingDetails) {
       </div>
     `,
   })
+  if (error) console.error('[email] sendOwnerNewBookingEmail failed:', error)
 }
 
 // Confirmation email to customer when they submit a booking
