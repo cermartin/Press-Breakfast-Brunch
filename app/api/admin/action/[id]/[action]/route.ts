@@ -59,9 +59,9 @@ export async function GET(
   }
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://press-breakfast-brunch.vercel.app'
-  const params = new URLSearchParams({ action })
-  if (reservation?.name) params.set('name', reservation.name)
-  if (reservation?.date) params.set('date', reservation.date)
-  if (reservation?.time) params.set('time', reservation.time)
-  return NextResponse.redirect(`${siteUrl}/booking-done?${params}`)
+  const qs = new URLSearchParams({ action })
+  if (reservation?.name) qs.set('name', reservation.name)
+  if (reservation?.date) qs.set('date', reservation.date)
+  if (reservation?.time) qs.set('time', reservation.time)
+  return NextResponse.redirect(`${siteUrl}/booking-done?${qs}`)
 }
