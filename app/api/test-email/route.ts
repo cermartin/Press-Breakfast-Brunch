@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
 
-const OWNER_EMAIL = 'emilyjacksn688@gmail.com'
+const OWNER_EMAIL = 'martin777cz@gmail.com'
 const FROM = 'Press Breakfast & Brunch <onboarding@resend.dev>'
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://press-breakfast-brunch.vercel.app'
 const ADMIN_KEY = process.env.ADMIN_SECRET_KEY || ''
