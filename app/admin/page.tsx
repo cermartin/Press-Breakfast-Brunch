@@ -251,6 +251,47 @@ export default function AdminPage() {
               ))}
           </div>
         )}
+
+        {/* Confirmed reservations log */}
+        {!loading && counts.accepted > 0 && (
+          <div className="pt-4">
+            <h2 className="text-sm font-bold text-stone-500 uppercase tracking-widest mb-3 flex items-center gap-2">
+              <CheckCircle className="w-4 h-4 text-green-600" />
+              Confirmed Log ({counts.accepted})
+            </h2>
+            <div className="bg-white rounded-2xl border border-green-200 overflow-hidden">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="bg-green-50 border-b border-green-100">
+                    <th className="text-left px-4 py-3 text-green-800 font-bold">Name</th>
+                    <th className="text-left px-4 py-3 text-green-800 font-bold">Date</th>
+                    <th className="text-left px-4 py-3 text-green-800 font-bold">Time</th>
+                    <th className="text-left px-4 py-3 text-green-800 font-bold">Guests</th>
+                    <th className="text-left px-4 py-3 text-green-800 font-bold">Phone</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {reservations
+                    .filter((r) => r.status === 'accepted')
+                    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+                    .map((r, i) => (
+                      <tr key={r.id} className={i % 2 === 0 ? 'bg-white' : 'bg-green-50/40'}>
+                        <td className="px-4 py-3 font-semibold text-stone-800">{r.name}</td>
+                        <td className="px-4 py-3 text-stone-600">
+                          {new Date(r.date + 'T12:00:00').toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' })}
+                        </td>
+                        <td className="px-4 py-3 text-stone-600">{r.time}</td>
+                        <td className="px-4 py-3 text-stone-600">{r.guest_count}</td>
+                        <td className="px-4 py-3">
+                          <a href={`tel:${r.phone}`} className="text-press-red font-bold hover:underline">{r.phone}</a>
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
       </div>
     </main>
   )
