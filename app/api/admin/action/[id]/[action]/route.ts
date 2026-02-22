@@ -58,7 +58,7 @@ export async function GET(
     }
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://press-breakfast-brunch.vercel.app'
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://pbb-eta.vercel.app'
   const qs = new URLSearchParams({ action })
   if (reservation?.name) qs.set('name', reservation.name)
   if (reservation?.date) qs.set('date', reservation.date)
