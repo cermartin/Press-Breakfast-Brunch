@@ -1,0 +1,6 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "node node_modules/next/dist/bin/next build",
+  "devCommand": "node node_modules/next/dist/bin/next dev",
+  "installCommand": "npm install --ignore-scripts"
+}
