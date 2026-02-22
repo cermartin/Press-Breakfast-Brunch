@@ -11,7 +11,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="sticky top-0 z-40 bg-press-dark border-b border-white/10 shadow-lg">
+      <nav className="sticky top-0 z-40 bg-press-dark border-b border-white/10 shadow-lg relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-20 items-center">
             {/* Logo */}
@@ -48,6 +48,9 @@ export default function Navbar() {
                 ORDER DELIVERY
               </a>
             </div>
+
+            {/* Version badge */}
+            <span className="hidden md:block absolute top-2 right-3 text-[10px] text-white/20 font-mono select-none">v1.0.2</span>
 
             {/* Mobile hamburger */}
             <button
