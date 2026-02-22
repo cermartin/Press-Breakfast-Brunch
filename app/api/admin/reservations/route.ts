@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
 
   const { data, error } = await supabase
     .from('reservations')
-    .select('id, name, phone, date, time, status, guest_count, created_at')
+    .select('id, name, phone, email, date, time, status, guest_count, created_at')
     .order('date', { ascending: true })
     .order('time', { ascending: true })
 

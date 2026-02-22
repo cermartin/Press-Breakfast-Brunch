@@ -10,6 +10,7 @@ import {
   Users,
   Phone,
   User,
+  Mail,
   CheckCircle2,
   ArrowLeft,
   Info,
@@ -54,7 +55,7 @@ export default function ReservePage() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
   const [selectedTime, setSelectedTime] = useState('')
   const [counts, setCounts] = useState<Record<string, number>>({})
-  const [form, setForm] = useState({ name: '', phone: '', guests: '2' })
+  const [form, setForm] = useState({ name: '', phone: '', email: '', guests: '2' })
   const [loading, setLoading] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
@@ -124,6 +125,7 @@ export default function ReservePage() {
         body: JSON.stringify({
           name: form.name,
           phone: form.phone,
+          email: form.email,
           date: dateStr,
           time: selectedTime,
           guest_count: parseInt(form.guests),
@@ -358,6 +360,20 @@ export default function ReservePage() {
                       placeholder="Phone number"
                       value={form.phone}
                       onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                      className="w-full pl-10 pr-4 py-3 rounded-xl border border-stone-200 focus:outline-none focus:border-press-dark text-sm"
+                    />
+                  </div>
+
+                  {/* Email */}
+                  <div className="relative">
+                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
+                    <input
+                      type="email"
+                      required
+                      autoComplete="email"
+                      placeholder="Email address"
+                      value={form.email}
+                      onChange={(e) => setForm({ ...form, email: e.target.value })}
                       className="w-full pl-10 pr-4 py-3 rounded-xl border border-stone-200 focus:outline-none focus:border-press-dark text-sm"
                     />
                   </div>

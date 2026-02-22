@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServerClient } from '@/lib/supabase'
+import { sendCustomerBookingAcceptedEmail } from '@/lib/email'
 
 function checkAdminAuth(request: NextRequest): boolean {
   const adminKey = request.headers.get('x-admin-key')
@@ -40,6 +41,27 @@ export async function PATCH(
 
   if (error) {
     return NextResponse.json({ error: 'Failed to update' }, { status: 500 })
+  }
+
+  // When accepted, send confirmation email to the customer
+  if (status === 'accepted') {
+    const { data: reservation } = await supabase
+      .from('reservations')
+      .select('id, name, phone, email, date, time, guest_count')
+      .eq('id', id)
+      .single()
+
+    if (reservation?.email) {
+      await sendCustomerBookingAcceptedEmail({
+        id: reservation.id,
+        name: reservation.name,
+        phone: reservation.phone,
+        email: reservation.email,
+        date: reservation.date,
+        time: reservation.time,
+        guestCount: reservation.guest_count,
+      }).catch(() => {}) // Don't fail the status update if email fails
+    }
   }
 
   return NextResponse.json({ success: true })

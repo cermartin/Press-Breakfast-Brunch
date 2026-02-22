@@ -35,6 +35,7 @@ export interface Reservation {
   id: string
   name: string
   phone: string
+  email: string
   date: string
   time: string
   status: 'pending' | 'accepted' | 'deleted'
