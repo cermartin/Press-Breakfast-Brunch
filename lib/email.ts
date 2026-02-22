@@ -135,3 +135,36 @@ export async function sendCustomerBookingAcceptedEmail(booking: BookingDetails) 
     `,
   })
 }
+
+// Cancellation email to customer when owner cancels their booking
+export async function sendCustomerBookingCancelledEmail(booking: BookingDetails) {
+  if (!booking.email) return
+
+  await getResend().emails.send({
+    from: FROM,
+    to: booking.email,
+    subject: `Your reservation has been cancelled — Press Breakfast & Brunch`,
+    html: `
+      <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
+        <div style="background: #b91c1c; padding: 24px; border-radius: 12px 12px 0 0;">
+          <h1 style="color: white; margin: 0; font-size: 22px;">Reservation Cancelled</h1>
+          <p style="color: rgba(255,255,255,0.8); margin: 4px 0 0;">Hi ${booking.name}, unfortunately we've had to cancel your booking.</p>
+        </div>
+        <div style="background: #f9f9f7; padding: 24px; border-radius: 0 0 12px 12px; border: 1px solid #e5e5e5;">
+          <div style="background: white; border-radius: 8px; padding: 16px; border: 1px solid #e5e5e5; margin-bottom: 20px;">
+            <p style="margin: 6px 0; color: #666;">📅 <strong style="color: #1a1a1a;">${formatDate(booking.date)}</strong></p>
+            <p style="margin: 6px 0; color: #666;">🕐 <strong style="color: #1a1a1a;">${booking.time}</strong></p>
+            <p style="margin: 6px 0; color: #666;">👥 <strong style="color: #1a1a1a;">${booking.guestCount} ${booking.guestCount === 1 ? 'guest' : 'guests'}</strong></p>
+          </div>
+          <p style="color: #444;">
+            We&apos;re sorry for any inconvenience. Please call us to rebook or if you have any questions:
+          </p>
+          <p style="margin: 4px 0;">📞 <a href="tel:+441895810648" style="color: #D32F2F; font-weight: bold;">+44 1895 810648</a></p>
+          <p style="margin-top: 20px; color: #888; font-size: 13px;">
+            Mon & Wed–Sat 7:00–16:30 · Sun 8:00–16:00 · Closed Tuesdays
+          </p>
+        </div>
+      </div>
+    `,
+  })
+}
