@@ -6,8 +6,8 @@ function getResend() {
   return _resend
 }
 
-const FROM = process.env.RESTAURANT_EMAIL_FROM ?? 'Press Breakfast & Brunch <onboarding@resend.dev>'
-const RESTAURANT_EMAIL = process.env.RESTAURANT_NOTIFY_EMAIL ?? 'emilyjacksn688@gmail.com'
+const FROM = process.env.RESTAURANT_EMAIL_FROM || 'Press Breakfast & Brunch <onboarding@resend.dev>'
+const RESTAURANT_EMAIL = process.env.RESTAURANT_NOTIFY_EMAIL || 'emilyjacksn688@gmail.com'
 
 interface BookingDetails {
   name: string
