@@ -58,7 +58,10 @@ export async function GET(
     }
   }
 
-  // Redirect to admin dashboard
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://press-breakfast-brunch.vercel.app'
-  return NextResponse.redirect(`${siteUrl}/admin`)
+  const params = new URLSearchParams({ action })
+  if (reservation?.name) params.set('name', reservation.name)
+  if (reservation?.date) params.set('date', reservation.date)
+  if (reservation?.time) params.set('time', reservation.time)
+  return NextResponse.redirect(`${siteUrl}/booking-done?${params}`)
 }
