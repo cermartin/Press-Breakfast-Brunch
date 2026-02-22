@@ -6,166 +6,147 @@ function getResend() {
   return _resend
 }
 
-const FROM = process.env.RESTAURANT_EMAIL_FROM || 'Press Breakfast & Brunch <onboarding@resend.dev>'
-const RESTAURANT_EMAIL = process.env.RESTAURANT_NOTIFY_EMAIL || 'emilyjacksn688@gmail.com'
+const FROM = 'Press Breakfast & Brunch <onboarding@resend.dev>'
+const OWNER_EMAIL = 'emilyjacksn688@gmail.com'
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://press-breakfast-brunch.vercel.app'
+const ADMIN_KEY = process.env.ADMIN_SECRET_KEY || ''
 
-interface BookingDetails {
+interface Booking {
+  id: string
   name: string
   phone: string
   email: string
   date: string
   time: string
   guestCount: number
-  id: string
 }
 
-function formatDate(dateStr: string) {
-  return new Date(dateStr + 'T12:00:00').toLocaleDateString('en-GB', {
-    weekday: 'long',
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
+function fmtDate(d: string) {
+  return new Date(d + 'T12:00:00').toLocaleDateString('en-GB', {
+    weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
   })
 }
 
-// Email to restaurant owner when a new booking comes in
-export async function sendOwnerNewBookingEmail(booking: BookingDetails) {
-  if (!RESTAURANT_EMAIL) return
+// 1. Email to owner when new booking arrives — with confirm/cancel buttons
+export async function emailOwnerNewBooking(b: Booking) {
+  const confirmUrl = `${SITE_URL}/api/admin/action/${b.id}/confirm?key=${encodeURIComponent(ADMIN_KEY)}`
+  const cancelUrl  = `${SITE_URL}/api/admin/action/${b.id}/cancel?key=${encodeURIComponent(ADMIN_KEY)}`
 
   const { error } = await getResend().emails.send({
     from: FROM,
-    to: RESTAURANT_EMAIL,
-    subject: `New Reservation — ${booking.name}, ${formatDate(booking.date)} at ${booking.time}`,
+    to: OWNER_EMAIL,
+    subject: `New reservation — ${b.name}, ${fmtDate(b.date)} at ${b.time}`,
     html: `
-      <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
-        <div style="background: #1A1A1A; padding: 24px; border-radius: 12px 12px 0 0;">
-          <h1 style="color: white; margin: 0; font-size: 22px;">🍳 New Reservation Request</h1>
-          <p style="color: #aaa; margin: 4px 0 0;">Press Breakfast & Brunch</p>
+      <div style="font-family:sans-serif;max-width:580px;margin:0 auto;background:#f9f9f7;border-radius:12px;overflow:hidden;border:1px solid #e5e5e5">
+        <div style="background:#1a1a1a;padding:24px">
+          <h2 style="color:white;margin:0;font-size:20px">🍳 New Reservation Request</h2>
         </div>
-        <div style="background: #f9f9f7; padding: 24px; border-radius: 0 0 12px 12px; border: 1px solid #e5e5e5;">
-          <table style="width: 100%; border-collapse: collapse;">
-            <tr><td style="padding: 8px 0; color: #666; width: 120px;">Name</td><td style="padding: 8px 0; font-weight: bold; color: #1a1a1a;">${booking.name}</td></tr>
-            <tr><td style="padding: 8px 0; color: #666;">Phone</td><td style="padding: 8px 0;"><a href="tel:${booking.phone}" style="color: #D32F2F; font-weight: bold;">${booking.phone}</a></td></tr>
-            <tr><td style="padding: 8px 0; color: #666;">Email</td><td style="padding: 8px 0;"><a href="mailto:${booking.email}" style="color: #D32F2F;">${booking.email}</a></td></tr>
-            <tr><td style="padding: 8px 0; color: #666;">Date</td><td style="padding: 8px 0; font-weight: bold; color: #1a1a1a;">${formatDate(booking.date)}</td></tr>
-            <tr><td style="padding: 8px 0; color: #666;">Time</td><td style="padding: 8px 0; font-weight: bold; color: #1a1a1a;">${booking.time}</td></tr>
-            <tr><td style="padding: 8px 0; color: #666;">Guests</td><td style="padding: 8px 0; font-weight: bold; color: #1a1a1a;">${booking.guestCount} ${booking.guestCount === 1 ? 'guest' : 'guests'}</td></tr>
+        <div style="padding:24px">
+          <table style="width:100%;border-collapse:collapse;margin-bottom:24px">
+            <tr><td style="padding:6px 0;color:#666;width:100px">Name</td><td style="padding:6px 0;font-weight:bold">${b.name}</td></tr>
+            <tr><td style="padding:6px 0;color:#666">Phone</td><td style="padding:6px 0"><a href="tel:${b.phone}" style="color:#D32F2F;font-weight:bold">${b.phone}</a></td></tr>
+            <tr><td style="padding:6px 0;color:#666">Email</td><td style="padding:6px 0">${b.email}</td></tr>
+            <tr><td style="padding:6px 0;color:#666">Date</td><td style="padding:6px 0;font-weight:bold">${fmtDate(b.date)}</td></tr>
+            <tr><td style="padding:6px 0;color:#666">Time</td><td style="padding:6px 0;font-weight:bold">${b.time}</td></tr>
+            <tr><td style="padding:6px 0;color:#666">Guests</td><td style="padding:6px 0;font-weight:bold">${b.guestCount}</td></tr>
           </table>
-          <div style="margin-top: 24px; text-align: center;">
-            <a href="${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://press-breakfast-brunch.vercel.app'}/admin"
-               style="background: #1A1A1A; color: white; padding: 12px 28px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block;">
-              Open Admin Dashboard →
-            </a>
+          <div style="display:flex;gap:12px">
+            <a href="${confirmUrl}" style="flex:1;display:inline-block;text-align:center;background:#16a34a;color:white;padding:14px 0;border-radius:8px;text-decoration:none;font-weight:bold;font-size:16px">✅ Confirm</a>
+            <a href="${cancelUrl}"  style="flex:1;display:inline-block;text-align:center;background:#dc2626;color:white;padding:14px 0;border-radius:8px;text-decoration:none;font-weight:bold;font-size:16px">❌ Cancel</a>
           </div>
         </div>
       </div>
     `,
   })
-  if (error) console.error('[email] sendOwnerNewBookingEmail failed:', error)
+  if (error) console.error('[email] owner new booking failed:', error)
 }
 
-// Confirmation email to customer when they submit a booking
-export async function sendCustomerBookingReceivedEmail(booking: BookingDetails) {
-  if (!booking.email) return
-
-  await getResend().emails.send({
+// 2. Email to customer — booking received, pending
+export async function emailCustomerPending(b: Booking) {
+  if (!b.email) return
+  const { error } = await getResend().emails.send({
     from: FROM,
-    to: booking.email,
-    subject: `Booking request received — Press Breakfast & Brunch`,
+    to: b.email,
+    subject: `We've received your booking — Press Breakfast & Brunch`,
     html: `
-      <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
-        <div style="background: #1A1A1A; padding: 24px; border-radius: 12px 12px 0 0;">
-          <h1 style="color: white; margin: 0; font-size: 22px;">Thanks, ${booking.name}!</h1>
-          <p style="color: #aaa; margin: 4px 0 0;">We've received your reservation request.</p>
+      <div style="font-family:sans-serif;max-width:580px;margin:0 auto;background:#f9f9f7;border-radius:12px;overflow:hidden;border:1px solid #e5e5e5">
+        <div style="background:#1a1a1a;padding:24px">
+          <h2 style="color:white;margin:0;font-size:20px">Thanks, ${b.name}! 👋</h2>
+          <p style="color:#aaa;margin:6px 0 0">We've received your reservation request.</p>
         </div>
-        <div style="background: #f9f9f7; padding: 24px; border-radius: 0 0 12px 12px; border: 1px solid #e5e5e5;">
-          <p style="color: #444; margin-top: 0;">Here's a summary of your request:</p>
-          <div style="background: white; border-radius: 8px; padding: 16px; border: 1px solid #e5e5e5;">
-            <p style="margin: 6px 0; color: #666;">📅 <strong style="color: #1a1a1a;">${formatDate(booking.date)}</strong></p>
-            <p style="margin: 6px 0; color: #666;">🕐 <strong style="color: #1a1a1a;">${booking.time}</strong></p>
-            <p style="margin: 6px 0; color: #666;">👥 <strong style="color: #1a1a1a;">${booking.guestCount} ${booking.guestCount === 1 ? 'guest' : 'guests'}</strong></p>
+        <div style="padding:24px">
+          <p style="color:#444;margin-top:0">Here's your request summary:</p>
+          <div style="background:white;border-radius:8px;padding:16px;border:1px solid #e5e5e5;margin-bottom:20px">
+            <p style="margin:6px 0">📅 <strong>${fmtDate(b.date)}</strong></p>
+            <p style="margin:6px 0">🕐 <strong>${b.time}</strong></p>
+            <p style="margin:6px 0">👥 <strong>${b.guestCount} ${b.guestCount === 1 ? 'guest' : 'guests'}</strong></p>
           </div>
-          <p style="color: #444; margin-top: 20px;">
-            We'll confirm your table shortly. If you need to reach us in the meantime:
-          </p>
-          <p style="margin: 4px 0;">📞 <a href="tel:+441895810648" style="color: #D32F2F; font-weight: bold;">+44 1895 810648</a></p>
-          <p style="margin: 4px 0; color: #666;">📍 311 Long Lane, Hillingdon, Uxbridge, UB10 9JY</p>
-          <p style="margin-top: 24px; color: #888; font-size: 13px;">
-            Mon & Wed–Sat 7:00–16:30 · Sun 8:00–16:00 · Closed Tuesdays
-          </p>
+          <p style="color:#555">We'll get back to you shortly to confirm your table. If you need to reach us:</p>
+          <p style="margin:4px 0">📞 <a href="tel:+441895810648" style="color:#D32F2F;font-weight:bold">+44 1895 810648</a></p>
+          <p style="margin:4px 0;color:#666">📍 311 Long Lane, Hillingdon, Uxbridge, UB10 9JY</p>
         </div>
       </div>
     `,
   })
+  if (error) console.error('[email] customer pending failed:', error)
 }
 
-// Confirmation email to customer when owner accepts their booking
-export async function sendCustomerBookingAcceptedEmail(booking: BookingDetails) {
-  if (!booking.email) return
-
-  await getResend().emails.send({
+// 3. Email to customer — confirmed
+export async function emailCustomerConfirmed(b: Booking) {
+  if (!b.email) return
+  const { error } = await getResend().emails.send({
     from: FROM,
-    to: booking.email,
+    to: b.email,
     subject: `✅ Your table is confirmed — Press Breakfast & Brunch`,
     html: `
-      <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
-        <div style="background: #16a34a; padding: 24px; border-radius: 12px 12px 0 0;">
-          <h1 style="color: white; margin: 0; font-size: 22px;">✅ You're confirmed, ${booking.name}!</h1>
-          <p style="color: rgba(255,255,255,0.8); margin: 4px 0 0;">Your table is booked at Press Breakfast & Brunch.</p>
+      <div style="font-family:sans-serif;max-width:580px;margin:0 auto;background:#f9f9f7;border-radius:12px;overflow:hidden;border:1px solid #e5e5e5">
+        <div style="background:#16a34a;padding:24px">
+          <h2 style="color:white;margin:0;font-size:20px">✅ You're confirmed, ${b.name}!</h2>
+          <p style="color:rgba(255,255,255,0.8);margin:6px 0 0">Your table is booked.</p>
         </div>
-        <div style="background: #f9f9f7; padding: 24px; border-radius: 0 0 12px 12px; border: 1px solid #e5e5e5;">
-          <div style="background: white; border-radius: 8px; padding: 16px; border: 1px solid #e5e5e5; margin-bottom: 20px;">
-            <p style="margin: 6px 0; color: #666;">📅 <strong style="color: #1a1a1a;">${formatDate(booking.date)}</strong></p>
-            <p style="margin: 6px 0; color: #666;">🕐 <strong style="color: #1a1a1a;">${booking.time}</strong></p>
-            <p style="margin: 6px 0; color: #666;">👥 <strong style="color: #1a1a1a;">${booking.guestCount} ${booking.guestCount === 1 ? 'guest' : 'guests'}</strong></p>
+        <div style="padding:24px">
+          <div style="background:white;border-radius:8px;padding:16px;border:1px solid #e5e5e5;margin-bottom:20px">
+            <p style="margin:6px 0">📅 <strong>${fmtDate(b.date)}</strong></p>
+            <p style="margin:6px 0">🕐 <strong>${b.time}</strong></p>
+            <p style="margin:6px 0">👥 <strong>${b.guestCount} ${b.guestCount === 1 ? 'guest' : 'guests'}</strong></p>
           </div>
-          <p style="margin: 4px 0; color: #444;">📍 <strong>311 Long Lane, Hillingdon, Uxbridge, UB10 9JY</strong></p>
-          <p style="margin: 4px 0; color: #666; font-size: 14px;">If your plans change, please let us know:</p>
-          <p style="margin: 4px 0;">📞 <a href="tel:+441895810648" style="color: #D32F2F; font-weight: bold;">+44 1895 810648</a></p>
-          <div style="margin-top: 24px; text-align: center;">
-            <a href="https://www.google.com/maps/place/Press+Breakfast+%26+Brunch/@51.5513178,-0.4492655,17z"
-               style="background: #D32F2F; color: white; padding: 12px 28px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block;">
-              Get Directions →
-            </a>
+          <p style="margin:4px 0">📍 <strong>311 Long Lane, Hillingdon, Uxbridge, UB10 9JY</strong></p>
+          <p style="margin:4px 0">📞 <a href="tel:+441895810648" style="color:#D32F2F;font-weight:bold">+44 1895 810648</a></p>
+          <div style="margin-top:24px;text-align:center">
+            <a href="https://maps.google.com/?q=Press+Breakfast+Brunch+Uxbridge" style="background:#D32F2F;color:white;padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:bold">Get Directions →</a>
           </div>
-          <p style="margin-top: 24px; color: #888; font-size: 13px; text-align: center;">
-            We look forward to seeing you! 🍳
-          </p>
+          <p style="margin-top:20px;color:#888;font-size:13px;text-align:center">We look forward to seeing you! 🍳</p>
         </div>
       </div>
     `,
   })
+  if (error) console.error('[email] customer confirmed failed:', error)
 }
 
-// Cancellation email to customer when owner cancels their booking
-export async function sendCustomerBookingCancelledEmail(booking: BookingDetails) {
-  if (!booking.email) return
-
-  await getResend().emails.send({
+// 4. Email to customer — cancelled
+export async function emailCustomerCancelled(b: Booking) {
+  if (!b.email) return
+  const { error } = await getResend().emails.send({
     from: FROM,
-    to: booking.email,
+    to: b.email,
     subject: `Your reservation has been cancelled — Press Breakfast & Brunch`,
     html: `
-      <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
-        <div style="background: #b91c1c; padding: 24px; border-radius: 12px 12px 0 0;">
-          <h1 style="color: white; margin: 0; font-size: 22px;">Reservation Cancelled</h1>
-          <p style="color: rgba(255,255,255,0.8); margin: 4px 0 0;">Hi ${booking.name}, unfortunately we've had to cancel your booking.</p>
+      <div style="font-family:sans-serif;max-width:580px;margin:0 auto;background:#f9f9f7;border-radius:12px;overflow:hidden;border:1px solid #e5e5e5">
+        <div style="background:#b91c1c;padding:24px">
+          <h2 style="color:white;margin:0;font-size:20px">Reservation Cancelled</h2>
+          <p style="color:rgba(255,255,255,0.8);margin:6px 0 0">Hi ${b.name}, unfortunately we've had to cancel your booking.</p>
         </div>
-        <div style="background: #f9f9f7; padding: 24px; border-radius: 0 0 12px 12px; border: 1px solid #e5e5e5;">
-          <div style="background: white; border-radius: 8px; padding: 16px; border: 1px solid #e5e5e5; margin-bottom: 20px;">
-            <p style="margin: 6px 0; color: #666;">📅 <strong style="color: #1a1a1a;">${formatDate(booking.date)}</strong></p>
-            <p style="margin: 6px 0; color: #666;">🕐 <strong style="color: #1a1a1a;">${booking.time}</strong></p>
-            <p style="margin: 6px 0; color: #666;">👥 <strong style="color: #1a1a1a;">${booking.guestCount} ${booking.guestCount === 1 ? 'guest' : 'guests'}</strong></p>
+        <div style="padding:24px">
+          <div style="background:white;border-radius:8px;padding:16px;border:1px solid #e5e5e5;margin-bottom:20px">
+            <p style="margin:6px 0">📅 <strong>${fmtDate(b.date)}</strong></p>
+            <p style="margin:6px 0">🕐 <strong>${b.time}</strong></p>
+            <p style="margin:6px 0">👥 <strong>${b.guestCount} ${b.guestCount === 1 ? 'guest' : 'guests'}</strong></p>
           </div>
-          <p style="color: #444;">
-            We&apos;re sorry for any inconvenience. Please call us to rebook or if you have any questions:
-          </p>
-          <p style="margin: 4px 0;">📞 <a href="tel:+441895810648" style="color: #D32F2F; font-weight: bold;">+44 1895 810648</a></p>
-          <p style="margin-top: 20px; color: #888; font-size: 13px;">
-            Mon & Wed–Sat 7:00–16:30 · Sun 8:00–16:00 · Closed Tuesdays
-          </p>
+          <p style="color:#444">We're sorry for any inconvenience. Please call us to rebook:</p>
+          <p style="margin:4px 0">📞 <a href="tel:+441895810648" style="color:#D32F2F;font-weight:bold">+44 1895 810648</a></p>
         </div>
       </div>
     `,
   })
+  if (error) console.error('[email] customer cancelled failed:', error)
 }
